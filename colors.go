@@ -6,7 +6,7 @@ package colorjson
 
 import (
 	"github.com/fatih/color"
-	"github.com/minio/pkg/v3/console"
+	"github.com/lgcorzo/pkg/v3/console"
 )
 
 const (
