@@ -654,7 +654,7 @@ func (d *decodeState) object(v reflect.Value) error {
 			reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64,
 			reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Uintptr:
 		default:
-			if !reflect.PtrTo(t.Key()).Implements(textUnmarshalerType) {
+			if !reflect.PointerTo(t.Key()).Implements(textUnmarshalerType) {
 				d.saveError(&UnmarshalTypeError{Value: "object", Type: v.Type(), Offset: int64(d.off)})
 				d.skip()
 				return nil
@@ -791,7 +791,7 @@ func (d *decodeState) object(v reflect.Value) error {
 			switch {
 			case kt.Kind() == reflect.String:
 				kv = reflect.ValueOf(key).Convert(kt)
-			case reflect.PtrTo(kt).Implements(textUnmarshalerType):
+			case reflect.PointerTo(kt).Implements(textUnmarshalerType):
 				kv = reflect.New(v.Type().Key())
 				if err := d.literalStore(item, kv, true); err != nil {
 					return err
